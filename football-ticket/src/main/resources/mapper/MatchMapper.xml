@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ticket.mapper.MatchMapper">
+    <resultMap id="BaseResultMap" type="com.ticket.entity.Matches">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="home_team" property="homeTeam"/>
+        <result column="away_team" property="awayTeam"/>
+        <result column="home_logo" property="homeLogo"/>
+        <result column="away_logo" property="awayLogo"/>
+        <result column="match_time" property="matchTime"/>
+        <result column="sale_time" property="saleTime"/>
+        <result column="venue_id" property="venueId"/>
+        <result column="venue_name" property="venueName"/>
+        <result column="poster" property="poster"/>
+        <result column="status" property="status"/>
+        <result column="min_price" property="minPrice"/>
+        <result column="max_price" property="maxPrice"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+    <select id="selectById" resultMap="BaseResultMap">
+        SELECT * FROM matches WHERE id = #{id}
+    </select>
+
+    <select id="selectUpcoming" resultMap="BaseResultMap">
+        SELECT * FROM matches WHERE match_time > NOW() ORDER BY match_time LIMIT #{limit}
+    </select>
+
+    <select id="selectHot" resultMap="BaseResultMap">
+        SELECT * FROM matches ORDER BY sale_count DESC LIMIT #{limit}
+    </select>
+
+    <select id="selectByCondition" resultMap="BaseResultMap">
+        SELECT * FROM matches
+        <where>
+            <if test="date != null">
+                DATE(match_time) = #{date}
+            </if>
+        </where>
+        ORDER BY match_time
+        LIMIT #{offset}, #{size}
+    </select>
+
+    <select id="countByCondition" resultType="int">
+        SELECT COUNT(*) FROM matches
+        <where>
+            <if test="date != null">
+                DATE(match_time) = #{date}
+            </if>
+        </where>
+    </select>
+
+    <insert id="insert" parameterType="com.ticket.entity.Matches" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO matches (name, home_team, away_team, home_logo, away_logo, match_time, sale_time,
+                             venue_id, venue_name, poster, status, min_price, max_price, create_time, update_time)
+        VALUES (#{name}, #{homeTeam}, #{awayTeam}, #{homeLogo}, #{awayLogo}, #{matchTime}, #{saleTime},
+                #{venueId}, #{venueName}, #{poster}, #{status}, #{minPrice}, #{maxPrice}, #{createTime}, #{updateTime})
+    </insert>
+
+    <delete id="deleteById">
+        DELETE FROM matches WHERE id = #{id}
+    </delete>
+
+    <update id="updateById">
+        UPDATE matches
+        SET name = #{name},
+            home_team = #{homeTeam},
+            away_team = #{awayTeam},
+        <if test="homeLogo != null">home_logo = #{homeLogo},</if>
+        <if test="awayLogo != null">away_logo = #{awayLogo},</if>
+            match_time = #{matchTime},
+            sale_time = #{saleTime},
+            venue_id = #{venueId},
+            venue_name = #{venueName},
+            poster = #{poster},
+            status = #{status},
+            min_price = #{minPrice},
+            max_price = #{maxPrice},
+            update_time = NOW()
+        WHERE id = #{id}
+    </update>
+</mapper>

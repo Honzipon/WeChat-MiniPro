@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ticket.mapper.SeatMapper">
+    <resultMap id="BaseResultMap" type="com.ticket.entity.Seat">
+        <id column="id" property="id"/>
+        <result column="venue_id" property="venueId"/>
+        <result column="area" property="area"/>
+        <result column="row_num" property="rowNum"/>
+        <result column="seat_num" property="seatNum"/>
+        <result column="position" property="position"/>
+        <result column="price" property="price"/>
+        <result column="status" property="status"/>
+        <result column="lock_order_id" property="lockOrderId"/>
+        <result column="lock_time" property="lockTime"/>
+        <result column="view_score" property="viewScore"/>
+    </resultMap>
+
+    <select id="selectById" resultMap="BaseResultMap">
+        SELECT * FROM seat WHERE id = #{id}
+    </select>
+
+    <update id="updateById">
+        UPDATE seat
+        <set>
+            <if test="status != null">status = #{status},</if>
+            <if test="lockOrderId != null">lock_order_id = #{lockOrderId},</if>
+            <if test="lockTime != null">lock_time = #{lockTime},</if>
+            <if test="price != null">price = #{price},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="selectByVenueAndMatch" resultMap="BaseResultMap">
+        SELECT s.*,
+               CASE WHEN o.id IS NOT NULL THEN 2 ELSE s.status END as status
+        FROM seat s
+                 LEFT JOIN `order` o ON FIND_IN_SET(s.id, o.seat_ids) AND o.status IN (1,2) AND o.match_id = #{matchId}
+        WHERE s.venue_id = #{venueId}
+        ORDER BY s.area, s.row_num, s.seat_num
+    </select>
+</mapper>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ticket.mapper.VenueMapper">
+    <resultMap id="BaseResultMap" type="com.ticket.entity.Venue">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="address" property="address"/>
+        <result column="latitude" property="latitude"/>
+        <result column="longitude" property="longitude"/>
+        <result column="total_seats" property="totalSeats"/>
+        <result column="facilities" property="facilities"/>
+        <result column="images" property="images"/>
+        <result column="model_url" property="modelUrl"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+    <!-- 查询所有场馆 -->
+    <select id="selectList" resultMap="BaseResultMap">
+        SELECT * FROM venue
+    </select>
+
+    <!-- 根据ID查询 -->
+    <select id="selectById" resultMap="BaseResultMap">
+        SELECT * FROM venue WHERE id = #{id}
+    </select>
+
+    <!-- 插入场馆 -->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO venue (name, address, latitude, longitude, total_seats, facilities, images, model_url, create_time, update_time)
+        VALUES (#{name}, #{address}, #{latitude}, #{longitude}, #{totalSeats}, #{facilities}, #{images}, #{modelUrl}, #{createTime}, #{updateTime})
+    </insert>
+
+    <!-- 更新场馆 -->
+    <update id="updateById">
+        UPDATE venue
+        <set>
+            <if test="name != null">name = #{name},</if>
+            <if test="address != null">address = #{address},</if>
+            <if test="latitude != null">latitude = #{latitude},</if>
+            <if test="longitude != null">longitude = #{longitude},</if>
+            <if test="totalSeats != null">total_seats = #{totalSeats},</if>
+            <if test="facilities != null">facilities = #{facilities},</if>
+            <if test="images != null">images = #{images},</if>
+            <if test="modelUrl != null">model_url = #{modelUrl},</if>
+            update_time = NOW()
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <!-- 删除场馆 -->
+    <delete id="deleteById">
+        DELETE FROM venue WHERE id = #{id}
+    </delete>
+</mapper>
