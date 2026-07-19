@@ -1,0 +1,34 @@
+<view class="container">
+  <!-- 座位分布图 -->
+  <image src="/images/seats-map.png" class="seats-map" mode="widthFix"></image>
+
+  <!-- 选座表单 -->
+  <view class="select-area">
+    <view class="row">
+      <text>区域：</text>
+      <picker mode="selector" range="{{areas}}" range-key="name" bindchange="onAreaChange">
+        <view class="picker">{{selectedAreaName || '请选择区域'}}</view>
+      </picker>
+    </view>
+    <view class="row">
+      <text>排号：</text>
+      <picker mode="selector" range="{{rows}}" bindchange="onRowChange" disabled="{{!rows.length}}">
+        <view class="picker">{{selectedRow || '请选择排'}}</view>
+      </picker>
+    </view>
+    <view class="row">
+      <text>座号：</text>
+      <picker mode="selector" range="{{seatOptions}}" range-key="label" bindchange="onSeatChange" disabled="{{!seatOptions.length}}">
+        <view class="picker">{{selectedSeatLabel || '请选择座号'}}</view>
+      </picker>
+    </view>
+  </view>
+
+  <!-- 已选座位信息 -->
+  <view class="selected-info" wx:if="{{selectedSeat}}">
+    <text>已选：{{selectedSeat.area}}区 {{selectedSeat.rowNum}}排 {{selectedSeat.seatNum}}号</text>
+    <text>价格：¥{{selectedSeat.price}}</text>
+  </view>
+
+  <button type="primary" bindtap="addToCart" disabled="{{!selectedSeat}}">立即预订</button>
+</view>

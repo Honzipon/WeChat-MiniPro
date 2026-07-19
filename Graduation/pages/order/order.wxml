@@ -1,0 +1,71 @@
+<view class="order">
+  <!-- 赛事信息（新建订单模式） -->
+  <view class="section" wx:if="{{match}}">
+    <view class="title">赛事信息</view>
+    <view class="match-info">
+      <image class="match-poster" src="{{match.poster}}" mode="aspectFill"></image>
+      <view class="match-detail">
+        <view class="match-name">{{match.homeTeam}} vs {{match.awayTeam}}</view>
+        <view class="match-time">{{match.matchTime}}</view>
+        <view class="match-venue">{{match.venueName}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 订单详情信息（详情模式） -->
+  <view class="section" wx:if="{{order}}">
+    <view class="title">订单详情</view>
+    <view class="detail-item">
+      <text class="label">订单号：</text>
+      <text class="value">{{order.orderNo}}</text>
+    </view>
+    <view class="detail-item">
+      <text class="label">赛事：</text>
+      <text class="value">{{order.matchName}}</text>
+    </view>
+    <view class="detail-item">
+      <text class="label">座位：</text>
+      <text class="value">{{order.seatInfo}}</text>
+    </view>
+    <view class="detail-item">
+      <text class="label">总金额：</text>
+      <text class="value price">¥{{order.totalAmount}}</text>
+    </view>
+    <view class="detail-item">
+      <text class="label">状态：</text>
+      <text class="value status">{{order.statusText}}</text>
+    </view>
+    <view class="detail-item" wx:if="{{order.contactName}}">
+      <text class="label">联系人：</text>
+      <text class="value">{{order.contactName}} {{order.contactPhone}}</text>
+    </view>
+    <button wx:if="{{order.status == 0}}" class="pay-btn" bindtap="payOrder" type="primary">立即支付</button>
+  </view>
+
+  <!-- 所选座位（新建订单模式） -->
+  <view class="section" wx:if="{{seatInfos.length > 0 && !order}}">
+    <view class="title">所选座位</view>
+    <view class="seat-list">
+      <view class="seat-item" wx:for="{{seatInfos}}" wx:key="id">
+        <text>{{item.area}}区 {{item.rowNum}}排 {{item.seatNum}}号</text>
+        <text class="price">¥{{item.price}}</text>
+      </view>
+    </view>
+    <view class="total">共 {{seatInfos.length}} 张，合计 ¥{{totalAmount}}</view>
+  </view>
+
+  <!-- 联系人信息（新建订单模式） -->
+  <view class="section" wx:if="{{!order}}">
+    <view class="title">联系人信息</view>
+    <input class="input" type="text" placeholder="姓名" bindinput="onNameInput" value="{{contactName}}" />
+    <input class="input" type="number" placeholder="手机号" bindinput="onPhoneInput" value="{{contactPhone}}" maxlength="11" />
+    <textarea class="textarea" placeholder="备注（选填）" bindinput="onNoteInput" value="{{note}}" />
+  </view>
+
+  <!-- 提交订单按钮（新建订单模式） -->
+  <view class="footer" wx:if="{{!order}}">
+    <button type="primary" bindtap="submitOrder" disabled="{{submitting}}">
+      {{submitting ? '提交中...' : '提交订单并支付'}}
+    </button>
+  </view>
+</view>

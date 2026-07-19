@@ -1,0 +1,13 @@
+<!--pages/login/login.wxml-->
+<view class="login">
+  <image src="/images/logo.png" class="logo" mode="aspectFit"></image>
+  <text class="title">足球赛事票务</text>
+  <text class="desc">一站式足球观赛预约平台</text>
+  <button class="login-btn" open-type="getUserInfo" bindgetuserinfo="handleLogin">微信用户一键登录</button>
+  <view class="protocol">
+    <text>登录即代表同意</text>
+    <text class="link">《用户协议》</text>
+    <text>和</text>
+    <text class="link">《隐私政策》</text>
+  </view>
+</view>

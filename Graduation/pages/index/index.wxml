@@ -1,0 +1,41 @@
+<view class="index">
+  <!-- 轮播图 -->
+  <swiper class="banner" indicator-dots="true" autoplay="true" interval="5000" duration="500">
+    <block wx:for="{{banners}}" wx:key="index">
+      <swiper-item>
+        <image src="{{item.image}}" class="banner-img" mode="aspectFill"></image>
+      </swiper-item>
+    </block>
+  </swiper>
+
+  <!-- 近期赛事 -->
+  <view class="section">
+    <view class="section-header">
+      <text class="title">近期赛事</text>
+      <text class="more" bindtap="goToMatchList">更多 ></text>
+    </view>
+    <view class="match-list">
+      <view class="match-item" wx:for="{{upcomingMatches}}" wx:key="id" bindtap="goToMatchDetail" data-id="{{item.id}}">
+        <image src="{{item.poster}}" mode="aspectFill" class="match-poster"></image>
+        <view class="match-info">
+          <view class="match-name">{{item.homeTeam}} vs {{item.awayTeam}}</view>
+          <view class="match-time">{{item.matchTime}}</view>
+          <view class="match-venue">{{item.venueName}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 热门赛事 -->
+  <view class="section">
+    <view class="section-header">
+      <text class="title">热门赛事</text>
+    </view>
+    <view class="hot-grid">
+      <view class="hot-item" wx:for="{{hotMatches}}" wx:key="id" bindtap="goToMatchDetail" data-id="{{item.id}}">
+        <image src="{{item.poster}}" mode="aspectFill" class="hot-poster"></image>
+        <text class="hot-name">{{item.homeTeam}} vs {{item.awayTeam}}</text>
+      </view>
+    </view>
+  </view>
+</view>

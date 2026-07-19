@@ -1,0 +1,77 @@
+/**index.wxss**/
+.index {
+  padding-bottom: 20rpx;
+}
+.banner {
+  width: 100%;
+  height: 400rpx;
+}
+.banner-img {
+  width: 100%;
+  height: 100%;
+}
+.section {
+  background-color: #fff;
+  margin-top: 20rpx;
+  padding: 30rpx;
+}
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+.title {
+  font-size: 32rpx;
+  font-weight: bold;
+}
+.more {
+  font-size: 28rpx;
+  color: #999;
+}
+.match-item {
+  display: flex;
+  margin-bottom: 30rpx;
+}
+.match-poster {
+  width: 200rpx;
+  height: 150rpx;
+  border-radius: 10rpx;
+  margin-right: 20rpx;
+}
+.match-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.match-name {
+  font-size: 32rpx;
+  font-weight: 500;
+  margin-bottom: 10rpx;
+}
+.match-time, .match-venue {
+  font-size: 26rpx;
+  color: #666;
+  margin-bottom: 5rpx;
+}
+.hot-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.hot-item {
+  width: 48%;
+  margin-bottom: 20rpx;
+}
+.hot-poster {
+  width: 100%;
+  height: 200rpx;
+  border-radius: 10rpx;
+}
+.hot-name {
+  display: block;
+  font-size: 28rpx;
+  text-align: center;
+  margin-top: 10rpx;
+}

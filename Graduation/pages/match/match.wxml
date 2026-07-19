@@ -1,0 +1,44 @@
+<view class="match-page">
+  <!-- 日期选择栏 -->
+  <scroll-view class="date-scroll" scroll-x="true" show-scrollbar="false">
+    <view class="date-list">
+      <view class="date-item {{selectedDate == item.date ? 'active' : ''}}" 
+            wx:for="{{dateList}}" wx:key="index" 
+            bindtap="selectDate" data-date="{{item.date}}">
+        <text class="weekday">{{item.weekday}}</text>
+        <text class="day">{{item.day}}</text>
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- 赛事列表 -->
+  <view class="match-list">
+    <view class="match-card" wx:for="{{matches}}" wx:key="id" 
+          bindtap="goToMatchDetail" data-id="{{item.id}}" data-venue-id="{{item.venueId}}">
+      <view class="match-header">
+        <text class="match-time">{{item.matchTime}}</text>
+        <text class="match-status">{{item.statusText}}</text>
+      </view>
+      <view class="match-teams">
+        <view class="team">
+          <image src="{{item.homeLogo}}" mode="aspectFit" class="team-logo"></image>
+          <text class="team-name">{{item.homeTeam}}</text>
+        </view>
+        <text class="vs">VS</text>
+        <view class="team">
+          <image src="{{item.awayLogo}}" mode="aspectFit" class="team-logo"></image>
+          <text class="team-name">{{item.awayTeam}}</text>
+        </view>
+      </view>
+      <view class="match-footer">
+        <text class="venue">{{item.venueName}}</text>
+        <text class="price">¥{{item.minPrice}}起</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 加载更多 -->
+  <view class="loading" wx:if="{{loading}}">加载中...</view>
+  <view class="no-more" wx:if="{{!hasMore && matches.length > 0}}">没有更多了</view>
+  <view class="empty" wx:if="{{!loading && matches.length == 0}}">暂无赛事</view>
+</view>

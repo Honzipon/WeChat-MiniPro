@@ -1,0 +1,52 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/match/match",
+    "pages/venue/venue",
+    "pages/order/order",
+    "pages/orders/orders",
+    "pages/user/user",
+    "pages/login/login"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#07c160",
+    "navigationBarTitleText": "足球赛事票务",
+    "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "color": "#999",
+    "selectedColor": "#07c160",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "images/home.png",
+        "selectedIconPath": "images/ac_home.png"
+      },
+      {
+        "pagePath": "pages/match/match",
+        "text": "赛事",
+        "iconPath": "images/match.png",
+        "selectedIconPath": "images/ac_match.png"
+      },
+      {
+        "pagePath": "pages/orders/orders",
+        "text": "订单",
+        "iconPath": "images/order.png",
+        "selectedIconPath": "images/ac_order.png"
+      },
+      {
+        "pagePath": "pages/user/user",
+        "text": "我的",
+        "iconPath": "images/user.png",
+        "selectedIconPath": "images/ac_user.png"
+      }
+    ]
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于查找附近场馆"
+    }
+  },
+  "sitemapLocation": "sitemap.json"
+}
